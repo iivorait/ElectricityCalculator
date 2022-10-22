@@ -1,0 +1,48 @@
+package org.acme;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import org.acme.models.PriceList;
+import org.acme.models.PricePoint;
+import org.acme.models.TimerResponse;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.acme.models.CalculationResponse;
+
+@ApplicationScoped
+public class CalculatorService {
+    
+    @Inject
+    @RestClient
+    ElectricityTimerAPI timer;
+
+    // @ConfigProperty(name = "blocks")
+    // public int blocks;
+
+    // @ConfigProperty(name = "minprice")
+    // public float minprice;
+
+    // @ConfigProperty(name = "cheapmode")
+    // public int cheapmode;
+
+    public CalculationResponse calc(int watts, float temperature, int curve, int blocks, float minprice, int cheapmode) {
+        int minutes = this.curve1(watts, temperature);
+        TimerResponse timerResponse = timer.getTiming(minutes, blocks, minprice, cheapmode);
+        CalculationResponse response = new CalculationResponse(timerResponse);
+        response.setMinutes(minutes);
+        response.setTemperature(temperature);
+        return response;
+    }
+
+    public int curve1(int watts, float temperature) {
+        if(temperature > 15) {
+             return 0;
+        }
+        
+        return 66;
+    }
+}
