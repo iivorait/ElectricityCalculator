@@ -17,7 +17,7 @@ public class CalculatorService {
     public CalculationResponse calc(int watts, float temperature, int curve, int blocks, float minprice, int cheapmode) {
         //TODO: curve valinta
         float kwh = this.curve1(temperature);
-        float minutes = kwh / (watts / 1000) * 60;
+        float minutes = kwh / ((float) watts / 1000) * 60;
         TimerResponse timerResponse = timer.getTiming((int) minutes, blocks, minprice, cheapmode);
         CalculationResponse response = new CalculationResponse(timerResponse);
         response.setMinutes(minutes);
