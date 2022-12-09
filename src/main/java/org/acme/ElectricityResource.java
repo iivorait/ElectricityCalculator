@@ -31,8 +31,8 @@ public class ElectricityResource {
             @QueryParam("minprice") float minprice,
             @QueryParam("cheapmode") int cheapmode
         ) {
-        //    System.out.println("KOE" + temperatureapi.getTemperature().replaceAll("[^0-9.]",""));
-        float temperature = Float.parseFloat(temperatureapi.getTemperature().replaceAll("[^0-9.]","")); //remove all other characters but numbers and decimal dot
+        //    System.out.println("KOE" + temperatureapi.getTemperature().replaceAll("[^0-9.-]",""));
+        float temperature = Float.parseFloat(temperatureapi.getTemperature().replaceAll("[^0-9.-]","")); //remove all other characters but numbers, minus sign and decimal dot
         return calculator.calc(watts, temperature, curve, blocks, minprice, cheapmode);
     }
 
