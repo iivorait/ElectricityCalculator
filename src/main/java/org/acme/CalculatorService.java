@@ -14,11 +14,11 @@ public class CalculatorService {
     @RestClient
     ElectricityTimerAPI timer;
 
-    public CalculationResponse calc(int watts, float temperature, int curve, int blocks, float minprice, int cheapmode) {
+    public CalculationResponse calc(int watts, float temperature, int curve, int blocks, int aggregatesize, float minprice, int cheapmode) {
         //TODO: curve valinta
         float kwh = this.curve1(temperature);
         float minutes = kwh / ((float) watts / 1000) * 60;
-        TimerResponse timerResponse = timer.getTiming((int) minutes, blocks, minprice, cheapmode);
+        TimerResponse timerResponse = timer.getTiming((int) minutes, blocks, aggregatesize, minprice, cheapmode);
         CalculationResponse response = new CalculationResponse(timerResponse);
         response.setMinutes(minutes);
         response.setTemperature(temperature);

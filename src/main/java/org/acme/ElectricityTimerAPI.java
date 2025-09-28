@@ -18,6 +18,7 @@ public interface ElectricityTimerAPI {
     TimerResponse getTiming(
         @QueryParam("minutes") int minutes, 
         @QueryParam("blocks") int blocks, 
+        @QueryParam("aggregatesize") int aggregatesize,
         @QueryParam("minprice") float minprice,
         @QueryParam("cheapmode") int cheapmode);
 }
